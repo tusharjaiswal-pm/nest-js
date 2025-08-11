@@ -1,4 +1,4 @@
-import { HttpException, HttpStatus, Injectable, NotFoundException } from '@nestjs/common';
+import { HttpException, HttpStatus, Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { Coffee } from './entities/coffee.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { DataSource, Repository } from 'typeorm';
@@ -16,8 +16,11 @@ export class CoffeeService {
         private readonly coffeeRepository: Repository<Coffee>,
         @InjectRepository(Flavor)
         private readonly flavorRepository: Repository<Flavor>,
-        private readonly connection: DataSource
-    ) { }
+        private readonly connection: DataSource,
+        @Inject("COFFEE_BRANDS") coffeeBrands: string[]
+    ) {
+        console.log(coffeeBrands);
+    }
 
     findAll(pagination: PaginationQueryDto) {
         const { limit, offset } = pagination;
