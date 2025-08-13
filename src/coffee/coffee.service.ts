@@ -1,4 +1,4 @@
-import { HttpException, HttpStatus, Inject, Injectable, NotFoundException } from '@nestjs/common';
+import { HttpException, HttpStatus, Inject, Injectable, NotFoundException, Scope } from '@nestjs/common';
 import { Coffee } from './entities/coffee.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { DataSource, Repository } from 'typeorm';
@@ -9,7 +9,7 @@ import { PaginationQueryDto } from 'src/common/dto/pagination-query.dto';
 import { Connection } from 'typeorm/browser';
 import { Event } from 'src/events/entities/event.entity';
 
-@Injectable()
+@Injectable({ scope: Scope.REQUEST })
 export class CoffeeService {
     constructor(
         @InjectRepository(Coffee)
